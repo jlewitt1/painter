@@ -16,7 +16,7 @@
      	var widthInput = document.createElement('input');
     
 		canvas.id = "CursorLayer";
-		canvas.width = 550//default value
+		canvas.width = 680//default value
 		canvas.height = 500//default value
 		canvas.style.zIndex = 8;
 		canvas.style.border = "1px solid";
@@ -31,7 +31,7 @@
 		body.appendChild(boxWidth);
 		body.appendChild(widthInput);
 		
-		header.innerHTML="<img src='clipper.gif' width='20' height='20'>**The Original Paint 95**";
+		header.innerHTML="<img src='./images/clipper.gif' width='20' height='20'>**The Original Paint 95**";
 
 		Object.assign(header.style,{color:"darkBlue", fontFamily:"sans-serif", marginLeft:"5px", marginTop:"2%", marginBottom:"1%", fontStyle:"italic"});
 
@@ -54,27 +54,33 @@
 			  canvas.height = heightInput.value;
 			 });
 
-		var x; var y;
+			var x; var y;
 
-		cursorLayer = document.getElementById("CursorLayer");
+			cursorLayer = document.getElementById("CursorLayer");
 
-		var ctx = canvas.getContext("2d");
+			var ctx = canvas.getContext("2d");
+
+			var brushWidth = 15;
+			var brushHeight = 15;
 		
 		canvas.addEventListener ('mousemove', function(event) { 
 			if (event.buttons !=1) return;
 
-			x = event.clientX;
-			y = event.clientY;
+			x = event.x;
+			y = event.y;
+
+			x -= canvas.offsetLeft;
+  			y -= canvas.offsetTop;
 
 			//console.log(x +"," +y)
 		
 			ctx.fillStyle = c; 
-		    ctx.fillRect(x,y,15,15); // x,y,width,height
+		    ctx.fillRect(x,y,brushWidth,brushHeight); // x,y,width,height
 		})
 			var c;
 
 			function getColor (event) { 
-
+					//console.log(event.target.getAttribute('data-color'))
 					c = event.target.getAttribute('data-color');
 			 		//console.log(c);
 			}
@@ -88,35 +94,55 @@
 
 			var blackButton = document.createElement("button");
 			blackButton.setAttribute('data-color', 'black');
-			blackButton.setAttribute('onClick', 'getColor(event)');
+			blackButton.addEventListener('click',getColor);
 
 			var blueButton = document.createElement("button");
 			blueButton.setAttribute('data-color', 'blue');
-			blueButton.setAttribute('onClick', 'getColor(event)');
+			blueButton.addEventListener('click',getColor);
 
 			var greenButton = document.createElement("button");
 			greenButton.setAttribute('data-color', 'green');
-			greenButton.setAttribute('onClick', 'getColor(event)');
+			greenButton.addEventListener('click',getColor);
 
 			var redButton = document.createElement("button");
 			redButton.setAttribute('data-color', 'red');
-			redButton.setAttribute('onClick', 'getColor(event)');
+			redButton.addEventListener('click',getColor);
 
 			var orangeButton = document.createElement("button");
 			orangeButton.setAttribute('data-color', 'orange');
-			orangeButton.setAttribute('onClick', 'getColor(event)');
+			orangeButton.addEventListener('click',getColor);
 
 			var purpleButton = document.createElement("button");
 			purpleButton.setAttribute('data-color', 'purple');
-			purpleButton.setAttribute('onClick', 'getColor(event)');
+			purpleButton.addEventListener('click',getColor);
 
 			var pinkButton = document.createElement("button");
 			pinkButton.setAttribute('data-color', 'pink');
-			pinkButton.setAttribute('onClick', 'getColor(event)');
+			pinkButton.addEventListener('click',getColor);
 
 			var eraserButton = document.createElement("button");
 			eraserButton.setAttribute('data-color', 'lightgrey');
-			eraserButton.setAttribute('onClick', 'getColor(event)');
+			eraserButton.addEventListener('click',getColor); 
+			eraserButton.innerHTML = "<img src='images/eraser.png' width='30' height='20'>";
+			//"; -->Image causes the eraser to assume previously used color
+
+			var increaseSize = document.createElement("button");
+			increaseSize.innerHTML = "+";
+
+			var decreaseSize = document.createElement("button");
+			decreaseSize.innerHTML = "-";
+			 
+			var brushAmount = 5;
+
+			increaseSize.addEventListener("click", function() {
+			  brushWidth+=brushAmount;
+			  brushHeight+=brushAmount;
+			 });
+
+			decreaseSize.addEventListener("click", function() {
+			  brushWidth-=brushAmount;
+			  brushHeight-=brushAmount;
+			 });
 
 			colorbox.appendChild(resetButton);
 			colorbox.appendChild(blackButton);
@@ -127,6 +153,9 @@
 			colorbox.appendChild(purpleButton);
 			colorbox.appendChild(pinkButton);
 			colorbox.appendChild(eraserButton);
+			colorbox.appendChild(increaseSize);
+			colorbox.appendChild(decreaseSize);
+
 
 			Object.assign(resetButton.style,{fontFamily:"sans-serif", height:"50px" , width:"60px", verticalAlign:"top", backgroundColor:"white", color:"black", border: "6px solid grey", borderRadius:"4px"});
 			Object.assign(blackButton.style,{fontFamily:"sans-serif", height:"50px" , width:"60px", backgroundColor:"black", color:"black", border: "6px solid grey", marginLeft: "2px", borderRadius:"4px"});
@@ -137,10 +166,9 @@
 			Object.assign(orangeButton.style,{fontFamily:"sans-serif", height:"50px" , width:"60px", backgroundColor:"orange", color:"orange", border: "6px solid grey" , marginLeft: "2px", borderRadius:"4px"});
 			Object.assign(purpleButton.style,{fontFamily:"sans-serif", height:"50px" , width:"60px", backgroundColor:"purple", color:"purple", border: "6px solid grey" , marginLeft: "2px", borderRadius:"4px"});
 			Object.assign(pinkButton.style,{fontFamily:"sans-serif", height:"50px" , width:"60px", backgroundColor:"pink", color:"pink", border: "6px solid grey" , marginLeft: "2px", borderRadius:"4px"});
-			Object.assign(eraserButton.style,{fontFamily:"sans-serif", height:"50px" , width:"60px", verticalAlign:"top", backgroundColor:"white", color:"black", border: "6px solid grey",marginLeft: "2px", borderRadius:"4px"});
-				
-			eraserButton.innerHTML = "ERASE";
-			//<img src='eraser.png' width='47' height='37'>"; -->Image causes the eraser to assume previously used color
+			Object.assign(eraserButton.style,{fontFamily:"sans-serif", height:"50px" , width:"60px", verticalAlign:"top", backgroundColor:"white", color:"black", border: "6px solid grey",marginLeft: "2px", textAlight:"center", borderRadius:"4px"});
+			Object.assign(increaseSize.style,{fontFamily:"sans-serif", height:"50px" , width:"60px", verticalAlign:"top", backgroundColor:"lightgrey", color:"darkBlue", border: "6px solid grey",marginLeft: "2px", fontSize: "20px",borderRadius:"4px"});
+			Object.assign(decreaseSize.style,{fontFamily:"sans-serif", height:"50px" , width:"60px", verticalAlign:"top", backgroundColor:"lightgrey", color:"darkBlue", border: "6px solid grey",marginLeft: "2px", fontSize:"20px", borderRadius:"4px"});				
 
     </script>  
 
