@@ -7,46 +7,42 @@
 
      <script> 
 
-     	var canvas = document.createElement('canvas');
-     	var header = document.createElement('header');
-     	var colorbox = document.createElement('div');
-     	var placeholder = document.createElement('span');
-     	var boxHeight = document.createElement('label');
-     	var heightInput = document.createElement('input');
-     	var boxWidth = document.createElement('label');
-     	var widthInput = document.createElement('input');
-    
-		canvas.id = "CursorLayer";
-		canvas.width = 680//default value
-		canvas.height = 500//default value
-		canvas.style.zIndex = 8;
-		canvas.style.border = "1px solid";
-		canvas.style.borderRadius = "20px";
-		canvas.style.backgroundColor = "lightgrey";  
-		placeholder.innerHTML = "PAINT ME";
+	     	var canvas = document.createElement('canvas');
+	     	var header = document.createElement('header');
+	     	var colorbox = document.createElement('div');
+	     	var placeholder = document.createElement('span');
+	     	var boxHeight = document.createElement('label');
+	     	var heightInput = document.createElement('input');
+	     	var boxWidth = document.createElement('label');
+	     	var widthInput = document.createElement('input');
+	    
+			canvas.id = "CursorLayer";
+			canvas.width = 750 //default value
+			canvas.height = 500 //default value
+			canvas.style.zIndex = 8;
+			canvas.style.border = "1px solid";
+			canvas.style.borderRadius = "20px";
+			canvas.style.backgroundColor = "lightgrey";  
+			placeholder.innerHTML = "PAINT ME";
 
-		var body = document.getElementsByTagName("body")[0];
-		body.appendChild(header);
-		body.appendChild(canvas);
-		body.appendChild(placeholder);
-		body.appendChild(colorbox);
-		body.appendChild(boxHeight);
-		body.appendChild(heightInput);
-		body.appendChild(boxWidth);
-		body.appendChild(widthInput);
+			var body = document.getElementsByTagName("body")[0];
+			body.appendChild(header);
+			body.appendChild(canvas);
+			body.appendChild(placeholder);
+			body.appendChild(colorbox);
+			body.appendChild(boxHeight);
+			body.appendChild(heightInput);
+			body.appendChild(boxWidth);
+			body.appendChild(widthInput);
 
-		Object.assign(placeholder.style,{fontFamily:"sans-serif",position:"absolute", fontSize:"60px", left:"200px", top:"250px", textAlign:"left", color:"darkgrey", transform:"rotate(-45deg)"});	
+			Object.assign(placeholder.style,{fontFamily:"sans-serif",position:"absolute", fontSize:"60px", left:"250px", top:"250px", textAlign:"left", color:"darkgrey", transform:"rotate(-45deg)"});	
 
-		header.innerHTML="<img src='./images/clipper.gif' width='20' height='20'>**The Original Paint 95**";
+			header.innerHTML = "<img src='./images/clipper.gif' width='20' height='20'>**The Original Paint 95**";
 
-		Object.assign(header.style,{color:"darkBlue", fontFamily:"sans-serif", marginLeft:"5px", marginTop:"2%", marginBottom:"1%", fontStyle:"italic"});
+			Object.assign(header.style,{color:"darkBlue", fontFamily:"sans-serif", marginLeft:"5px", marginTop:"2%", marginBottom:"1%", fontStyle:"italic"});
 
 			var x; var y;
-
-			//cursorLayer = document.getElementById("CursorLayer");
-
 			var ctx = canvas.getContext("2d");
-
 			var brushWidth = 15;
 			var brushHeight = 15;
 		
@@ -59,8 +55,6 @@
 
 			x -= canvas.offsetLeft;
   			y -= canvas.offsetTop;
-
-			//console.log(x +"," +y)
 		
 			ctx.fillStyle = c; 
 		    ctx.fillRect(x,y,brushWidth,brushHeight); // x,y,width,height
@@ -71,20 +65,17 @@
 					c = event.target.getAttribute('data-color');
 			}
 
-			var colorList = ['black', 'blue', 'green', 'red', 'orange', 'purple', 'pink', 'lightgrey'];
+			var colorList = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'black', 'lightgrey'];
 
 			for (var i=0; i<colorList.length; i++) { 
-
 				var newButton = document.createElement("button");
 				newButton.setAttribute('data-color', colorList[i]);
 				Object.assign(newButton.style,{fontFamily:"sans-serif", height:"50px" , width:"60px", verticalAlign:"top", backgroundColor:colorList[i], color:"black", marginLeft:"2px", border: "6px solid grey", borderRadius:"4px"});
 				newButton.addEventListener('click',getColor);
 				colorbox.appendChild(newButton);
 
-				if (colorList[i] == "lightgrey"){
-					newButton.style.backgroundImage = "url('images/eraser.png')";
-					newButton.style.backgroundSize = "cover";
-					newButton.style.backgroundColor ="white";
+				if (colorList[i] == "lightgrey") {
+					Object.assign(newButton.style,{backgroundImage: "url('images/eraser.png')", backgroundSize:"cover", backgroundColor:"white",border:"6px solid darkblue"});
 				}
 			}
 
@@ -141,8 +132,6 @@
 				  canvas.width = widthInput.value;
 				  canvas.height = heightInput.value;
 				 });
-
-		
 
     </script>  
 
