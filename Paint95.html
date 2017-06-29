@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>  
+	 <title> Color Painter </title>
+  </head>
+   <body>
+
+     <script> 
+
+     	var canvas = document.createElement('canvas');
+     	var header = document.createElement('header');
+     	var colorbox = document.createElement('div');
+     	var boxHeight = document.createElement('label');
+     	var heightInput = document.createElement('input');
+     	var boxWidth = document.createElement('label');
+     	var widthInput = document.createElement('input');
+    
+		canvas.id = "CursorLayer";
+		canvas.width = 550//default value
+		canvas.height = 500//default value
+		canvas.style.zIndex = 8;
+		canvas.style.border = "1px solid";
+		canvas.style.backgroundColor = "lightgrey";  
+
+		var body = document.getElementsByTagName("body")[0];
+		body.appendChild(header);
+		body.appendChild(canvas);
+		body.appendChild(colorbox);
+		body.appendChild(boxHeight);
+		body.appendChild(heightInput);
+		body.appendChild(boxWidth);
+		body.appendChild(widthInput);
+		
+		header.innerHTML="<img src='clipper.gif' width='20' height='20'>**The Original Paint 95**";
+
+		Object.assign(header.style,{color:"darkBlue", fontFamily:"sans-serif", marginLeft:"5px", marginTop:"2%", marginBottom:"1%", fontStyle:"italic"});
+
+		boxHeight.innerHTML = "Canvas height:";
+		Object.assign(boxHeight.style,{color:"darkBlue", fontFamily:"sans-serif", marginLeft:"25px", fontStyle:"bold", fontSize:"14px"});
+		Object.assign(heightInput.style,{height: "15px", width: "30px", color:"black", marginLeft: "4px", marginRight: "4px"});
+
+		boxWidth.innerHTML = "Canvas width:";
+		Object.assign(boxWidth.style,{color:"darkBlue", fontFamily:"sans-serif", marginLeft:"35px", fontStyle:"bold", fontSize:"14px"});
+		Object.assign(widthInput.style,{height: "15px", width: "30px", color:"black", marginLeft: "4px", marginRight: "4px"});
+
+		var submitButton = document.createElement("button");
+		submitButton.innerHTML = "Go!";
+		Object.assign(submitButton.style,{fontFamily:"sans-serif", height:"25px" , width:"30px", backgroundColor:"white", color:"darkBlue", border: "1px solid darkBlue" , marginLeft: "2px", marginTop:"15px"});
+
+		body.appendChild(submitButton);
+
+		submitButton.addEventListener("click", function() {
+			  canvas.width = widthInput.value;
+			  canvas.height = heightInput.value;
+			 });
+
+		var x; var y;
+
+		cursorLayer = document.getElementById("CursorLayer");
+
+		var ctx = canvas.getContext("2d");
+		
+		canvas.addEventListener ('mousemove', function(event) { 
+			if (event.buttons !=1) return;
+
+			x = event.clientX;
+			y = event.clientY;
+
+			//console.log(x +"," +y)
+		
+			ctx.fillStyle = c; 
+		    ctx.fillRect(x,y,15,15); // x,y,width,height
+		})
+			var c;
+
+			function getColor (event) { 
+
+					c = event.target.getAttribute('data-color');
+			 		//console.log(c);
+			}
+
+			var resetButton = document.createElement("button");
+			resetButton.innerHTML = "CLEAR";
+
+			resetButton.addEventListener("click", function() {
+			  ctx.clearRect(0, 0, canvas.width, canvas.height);
+			 });
+
+			var blackButton = document.createElement("button");
+			blackButton.setAttribute('data-color', 'black');
+			blackButton.setAttribute('onClick', 'getColor(event)');
+
+			var blueButton = document.createElement("button");
+			blueButton.setAttribute('data-color', 'blue');
+			blueButton.setAttribute('onClick', 'getColor(event)');
+
+			var greenButton = document.createElement("button");
+			greenButton.setAttribute('data-color', 'green');
+			greenButton.setAttribute('onClick', 'getColor(event)');
+
+			var redButton = document.createElement("button");
+			redButton.setAttribute('data-color', 'red');
+			redButton.setAttribute('onClick', 'getColor(event)');
+
+			var orangeButton = document.createElement("button");
+			orangeButton.setAttribute('data-color', 'orange');
+			orangeButton.setAttribute('onClick', 'getColor(event)');
+
+			var purpleButton = document.createElement("button");
+			purpleButton.setAttribute('data-color', 'purple');
+			purpleButton.setAttribute('onClick', 'getColor(event)');
+
+			var pinkButton = document.createElement("button");
+			pinkButton.setAttribute('data-color', 'pink');
+			pinkButton.setAttribute('onClick', 'getColor(event)');
+
+			var eraserButton = document.createElement("button");
+			eraserButton.setAttribute('data-color', 'lightgrey');
+			eraserButton.setAttribute('onClick', 'getColor(event)');
+
+			colorbox.appendChild(resetButton);
+			colorbox.appendChild(blackButton);
+			colorbox.appendChild(blueButton);
+			colorbox.appendChild(greenButton);
+			colorbox.appendChild(redButton);
+			colorbox.appendChild(orangeButton);
+			colorbox.appendChild(purpleButton);
+			colorbox.appendChild(pinkButton);
+			colorbox.appendChild(eraserButton);
+
+			Object.assign(resetButton.style,{fontFamily:"sans-serif", height:"50px" , width:"60px", verticalAlign:"top", backgroundColor:"white", color:"black", border: "6px solid grey", borderRadius:"4px"});
+			Object.assign(blackButton.style,{fontFamily:"sans-serif", height:"50px" , width:"60px", backgroundColor:"black", color:"black", border: "6px solid grey", marginLeft: "2px", borderRadius:"4px"});
+			Object.assign(blueButton.style,{fontFamily:"sans-serif", height:"50px" , width:"60px", backgroundColor:"blue", color:"blue"
+				, border: "6px solid grey" , marginLeft: "2px", borderRadius:"4px"});
+			Object.assign(greenButton.style,{fontFamily:"sans-serif", height:"50px" , width:"60px", backgroundColor:"green", color:"green", border: "6px solid grey", marginLeft: "2px", borderRadius:"4px"});
+			Object.assign(redButton.style,{fontFamily:"sans-serif", height:"50px" , width:"60px", backgroundColor:"red", color:"red", border: "6px solid grey" , marginLeft: "2px", borderRadius:"4px"});
+			Object.assign(orangeButton.style,{fontFamily:"sans-serif", height:"50px" , width:"60px", backgroundColor:"orange", color:"orange", border: "6px solid grey" , marginLeft: "2px", borderRadius:"4px"});
+			Object.assign(purpleButton.style,{fontFamily:"sans-serif", height:"50px" , width:"60px", backgroundColor:"purple", color:"purple", border: "6px solid grey" , marginLeft: "2px", borderRadius:"4px"});
+			Object.assign(pinkButton.style,{fontFamily:"sans-serif", height:"50px" , width:"60px", backgroundColor:"pink", color:"pink", border: "6px solid grey" , marginLeft: "2px", borderRadius:"4px"});
+			Object.assign(eraserButton.style,{fontFamily:"sans-serif", height:"50px" , width:"60px", verticalAlign:"top", backgroundColor:"white", color:"black", border: "6px solid grey",marginLeft: "2px", borderRadius:"4px"});
+				
+			eraserButton.innerHTML = "ERASE";
+			//<img src='eraser.png' width='47' height='37'>"; -->Image causes the eraser to assume previously used color
+
+    </script>  
+
+   </body>
+	
+</html>
